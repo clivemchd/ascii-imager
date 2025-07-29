@@ -279,11 +279,64 @@ label {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Modal styling for background removal */
+.bg-removal-modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 9999;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+}
+
+/* Ensure hidden state works for modal */
+.bg-removal-modal.hidden {
+    display: none !important;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0 0 0 / 0%);
+    backdrop-filter: blur(10px);
+}
+
+.modal-content {
+    position: relative;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px;
+    background: rgba(20, 22, 25, 0.95);
+    border: 2px solid rgba(0, 255, 136, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
 .loader-spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid rgba(255, 255, 255, 0.1);
-    border-left: 4px solid #00ff88;
+    width: 60px;
+    height: 60px;
+    border: 6px solid rgba(255, 255, 255, 0.1);
+    border-left: 6px solid #00ff88;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -299,10 +352,24 @@ label {
     font-style: italic;
 }
 
+.modal-content p {
+    margin: 0;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 500;
+}
+
 .bg-removal-loader small {
     margin: 0;
     color: rgba(255, 255, 255, 0.7);
     font-size: 12px;
+}
+
+.modal-content small {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    line-height: 1.4;
 }
 
 .processed-image-preview {
@@ -442,38 +509,7 @@ label {
     pointer-events: none;
 }
 
-/* Progress cursor for disabled elements during background removal */
-.bg-removal-loader:not(.hidden) ~ * input:disabled,
-.bg-removal-loader:not(.hidden) ~ * button:disabled,
-.bg-removal-loader:not(.hidden) ~ * select:disabled,
-.bg-removal-loader:not(.hidden) ~ * .control-group input,
-.bg-removal-loader:not(.hidden) ~ * .control-group select,
-.bg-removal-loader:not(.hidden) ~ * .control-group button,
-.bg-removal-loader:not(.hidden) ~ * .control-group-vertical input,
-.bg-removal-loader:not(.hidden) ~ * .control-group-vertical select,
-.bg-removal-loader:not(.hidden) ~ * .control-group-vertical button {
-    cursor: progress !important;
-    pointer-events: auto;
-}
-
-/* Also apply progress cursor to labels and text during background removal */
-.bg-removal-loader:not(.hidden) ~ * label,
-.bg-removal-loader:not(.hidden) ~ * .control-group,
-.bg-removal-loader:not(.hidden) ~ * .control-group-vertical {
-    cursor: progress !important;
-}
-
-/* Alternative approach using body class for better browser support */
-body.bg-removal-in-progress .controls input,
-body.bg-removal-in-progress .controls select,
-body.bg-removal-in-progress .controls button,
-body.bg-removal-in-progress .controls label,
-body.bg-removal-in-progress .control-group,
-body.bg-removal-in-progress .control-group-vertical {
-    cursor: progress !important;
-}
-
-body.bg-removal-in-progress #convertBtn,
-body.bg-removal-in-progress #downloadBtn {
-    cursor: progress !important;
+/* Progress cursor styles - simplified since modal blocks interaction */
+body.bg-removal-in-progress {
+    overflow: hidden;
 }
