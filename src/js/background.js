@@ -1,5 +1,7 @@
+import * as THREE from 'three'
+
 // Three.js ASCII Framebuffer Background Animation
-class ThreeJSBackground {
+export class ThreeJSBackground {
     constructor() {
         this.container = document.getElementById('threejs-background');
         this.scene = new THREE.Scene();
@@ -269,8 +271,3 @@ class ThreeJSBackground {
         });
     }
 }
-
-// Initialize Three.js background when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    new ThreeJSBackground();
-});

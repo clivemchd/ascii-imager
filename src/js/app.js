@@ -1,4 +1,4 @@
-class ImageToAscii {
+export class ImageToAscii {
     constructor() {
         this.canvas = document.getElementById('canvas');
         this.ctx = this.canvas.getContext('2d');
@@ -405,8 +405,3 @@ class ImageToAscii {
         URL.revokeObjectURL(url);
     }
 }
-
-// Initialize the application
-document.addEventListener('DOMContentLoaded', () => {
-    new ImageToAscii();
-});
