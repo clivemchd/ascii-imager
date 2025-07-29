@@ -69,6 +69,8 @@ npm run deploy
 ## Project Structure
 
 ```
+├── public/
+│   └── CNAME                   # Custom domain configuration
 ├── src/
 │   ├── css/
 │   │   └── styles.css          # Main stylesheet
