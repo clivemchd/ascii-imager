@@ -513,3 +513,121 @@ label {
 body.bg-removal-in-progress {
     overflow: hidden;
 }
+
+/* Semantic HTML improvements for LLM optimization */
+.subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+header {
+    margin-bottom: 40px;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+.action-buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.action-buttons button {
+    margin: 0 10px;
+}
+
+/* FAQ Section Styles for LLM optimization */
+.faq-section {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    padding: 30px;
+    margin-top: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.faq-section h2 {
+    text-align: center;
+    color: #00ff88;
+    margin-bottom: 30px;
+    font-size: 1.8em;
+    text-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+.faq-item {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border-left: 4px solid #00ff88;
+    transition: background 0.3s ease;
+}
+
+.faq-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.faq-item h3 {
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    line-height: 1.4;
+}
+
+.faq-item p {
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+footer a {
+    color: #00ff88;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #00ffaa;
+    text-decoration: underline;
+}
+
+/* Enhanced section headers for better structure */
+section h2 {
+    color: #00ff88;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+}
+
+section h3 {
+    color: #ffffff;
+    font-size: 1.3em;
+    margin-bottom: 15px;
+}
+
+/* Responsive improvements for semantic structure */
+@media (max-width: 768px) {
+    .faq-section {
+        padding: 20px;
+    }
+    
+    .faq-item {
+        padding: 15px;
+    }
+    
+    .subtitle {
+        font-size: 1em;
+    }
+}

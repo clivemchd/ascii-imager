@@ -126,4 +126,4 @@ MIT License - see LICENSE file for details.
 
 ## Author
 
-Clive Machado - [GitHub](https://github.com/clivemchd)
+Clive - [GitHub](https://github.com/clivemchd)

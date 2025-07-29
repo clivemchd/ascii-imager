@@ -1,0 +1,34 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ASCII Art Converter",
+  "url": "https://ascii.cliive.com",
+  "description": "Professional online ASCII art converter with AI background removal",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Web Browser",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "creator": {
+    "@type": "Person",
+    "name": "Clive"
+  },
+  "keywords": [
+    "ASCII art",
+    "image converter", 
+    "text art",
+    "AI background removal",
+    "privacy-first",
+    "WebAssembly"
+  ],
+  "featureList": [
+    "Image to ASCII conversion",
+    "AI background removal",
+    "Multiple character sets",
+    "PNG/SVG/TXT export",
+    "Local processing",
+    "Privacy protection"
+  ]
+}

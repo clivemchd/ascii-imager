@@ -1,0 +1,53 @@
+User-agent: *
+Allow: /
+
+# Explicitly allow major LLM crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: BingBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Sitemap
+Sitemap: https://ascii.cliive.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Allow all search engines to index the main functionality
+Allow: /index.html
+Allow: /src/
+Allow: /public/
+Allow: /SEO_KEYWORDS.md
+Allow: /LLM_CONTEXT.md
+Allow: /AI_PROMPTS.md
+Allow: /llm.txt
+Allow: /llm-optimization.txt
+Allow: /strategic-content.md
+Allow: /entity-knowledge-graph.md
+Allow: /.well-known/
+
+# Block any potential admin or development files
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /package.json
+Disallow: /vite.config.js
+Disallow: /.env*

@@ -1,0 +1,220 @@
+# ASCII Art Converter
+
+A privacy-first web application that converts images to ASCII art with AI-powered background removal.
+
+## Project Overview
+
+This is a modern web-based ASCII art converter built with vanilla JavaScript that transforms images into text-based art. The application features advanced AI background removal that runs entirely in the browser using WebAssembly, ensuring complete user privacy.
+
+## Key Features
+
+- **Image to ASCII Conversion**: Transform any image into customizable text art
+- **AI Background Removal**: Local WASM-based background removal with @imgly/background-removal
+- **Privacy-First Design**: All processing happens in browser, no data sent to servers
+- **Multiple Character Sets**: Detailed, simple, blocks, and custom character options
+- **Quality Control**: Adjustable output from 100 to 5,000,000 characters
+- **Multiple Export Formats**: PNG, SVG, and TXT downloads
+- **Responsive Design**: Works on desktop and mobile devices
+- **Real-time Preview**: Live preview of uploaded images and processed results
+
+## Technology Stack
+
+- **Frontend**: Vanilla JavaScript (ES6+), HTML5 Canvas API, CSS3
+- **Build Tool**: Vite for development and production builds
+- **3D Effects**: Three.js for animated background
+- **AI Processing**: @imgly/background-removal (WebAssembly)
+- **Deployment**: GitHub Pages with custom domain
+- **Privacy**: Client-side only, no backend servers
+
+## Architecture
+
+```
+/
+├── index.html              # Main application entry point
+├── package.json           # Project dependencies and scripts
+├── vite.config.js         # Build configuration
+├── robots.txt             # SEO crawler instructions
+├── public/
+│   ├── CNAME             # Custom domain configuration
+│   └── sitemap.xml       # SEO site map
+└── src/
+    ├── main.js           # Application bootstrap
+    ├── css/
+    │   └── styles.css    # Application styling with modal system
+    └── js/
+        ├── app.js        # Core ASCII conversion logic
+        └── background.js # Three.js background effects
+```
+
+## Core Algorithms
+
+### ASCII Conversion Process
+1. **Image Loading**: FileReader API loads user image as data URL
+2. **Canvas Rendering**: Image drawn to HTML5 canvas at calculated dimensions
+3. **Pixel Analysis**: ImageData API extracts RGB values for each pixel
+4. **Brightness Calculation**: Convert RGB to grayscale using luminance formula
+5. **Character Mapping**: Map brightness values to character set indices
+6. **Text Assembly**: Build multi-line ASCII string with proper formatting
+
+### Background Removal Integration
+1. **AI Model Loading**: WebAssembly model loaded on first use
+2. **Local Processing**: Image processed entirely in browser memory
+3. **Transparency Handling**: Resulting image maintains alpha channel
+4. **Fallback Support**: Graceful degradation if WASM not supported
+
+## Development Workflow
+
+### Getting Started
+```bash
+npm install          # Install dependencies
+npm run dev         # Start development server
+npm run build       # Build for production
+npm run deploy      # Deploy to GitHub Pages
+```
+
+### Project Structure
+- Modern ES6 module system
+- Component-based architecture
+- Responsive CSS with flexbox and grid
+- Progressive enhancement for accessibility
+
+## Privacy and Security
+
+### Local Processing Benefits
+- **No Data Transfer**: Images never leave user's device
+- **GDPR Compliant**: No personal data collection or storage
+- **Offline Capable**: Core functionality works without internet
+- **Transparent Operations**: Users can inspect all processing locally
+
+### Technical Privacy Features
+- WebAssembly sandboxing for AI models
+- No third-party analytics or tracking
+- Client-side file handling only
+- Secure HTTPS deployment
+
+## User Experience
+
+### Interface Design
+- **Drag & Drop**: Intuitive file upload with visual feedback
+- **Real-time Preview**: Immediate image preview upon upload
+- **Progressive Disclosure**: Advanced options hidden until needed
+- **Loading States**: Clear feedback during processing operations
+- **Error Handling**: User-friendly error messages and recovery
+
+### Accessibility Features
+- Keyboard navigation support
+- Screen reader compatible labels
+- High contrast color schemes
+- Responsive text sizing
+- Alternative text for images
+
+## Performance Optimizations
+
+### Frontend Performance
+- **Lazy Loading**: Three.js background loads after main content
+- **Memory Management**: Efficient canvas and ImageData handling
+- **Progressive Enhancement**: Core features work without JavaScript
+- **Resource Optimization**: Minimal bundle size with Vite
+
+### Processing Efficiency
+- **Quality Controls**: Prevent browser crashes with size limits
+- **Background Processing**: Non-blocking UI during conversion
+- **Caching**: AI models cached after first download
+- **Optimization**: Smart dimension calculation for performance
+
+## SEO and Discoverability
+
+### Search Optimization
+- Comprehensive meta tags and structured data
+- Semantic HTML5 structure
+- Fast loading times and mobile optimization
+- Regular sitemap updates
+
+### Content Strategy
+- Educational content about ASCII art
+- Technical blog posts about privacy-first design
+- Community engagement through GitHub
+- Social media integration for sharing
+
+## Browser Compatibility
+
+### Required Features
+- ES6+ JavaScript support
+- HTML5 Canvas API
+- File API for uploads
+- WebAssembly for background removal
+- CSS Flexbox and Grid
+
+### Supported Browsers
+- Chrome 70+
+- Firefox 65+
+- Safari 12+
+- Edge 79+
+
+## Use Cases
+
+### Creative Applications
+- Digital art and design projects
+- Social media content creation
+- Retro gaming aesthetics
+- Print design elements
+
+### Technical Applications
+- Code documentation and README files
+- Terminal and CLI interface design
+- Educational programming examples
+- Accessibility-friendly image alternatives
+
+### Professional Use
+- Marketing and branding materials
+- Presentation graphics
+- Website design elements
+- Portfolio and showcase projects
+
+## Contributing and Development
+
+### Code Style
+- ES6+ modern JavaScript patterns
+- Semantic HTML structure
+- BEM-style CSS methodology
+- Comprehensive error handling
+
+### Testing Strategy
+- Manual testing across browsers
+- Performance testing with large images
+- Accessibility testing with screen readers
+- Mobile device testing
+
+## Future Roadmap
+
+### Planned Features
+- Video to ASCII animation support
+- Real-time webcam ASCII conversion
+- Batch processing for multiple images
+- Additional character sets and styles
+- Progressive Web App (PWA) capabilities
+
+### Technical Improvements
+- WebGL acceleration for faster processing
+- Advanced color ASCII support
+- Additional export formats (PDF, HTML)
+- Enhanced mobile experience
+
+## License and Attribution
+
+- **License**: MIT License
+- **Author**: Clive
+- **Website**: https://ascii.cliive.com
+
+## Dependencies
+
+### Production Dependencies
+- `@imgly/background-removal`: AI background removal (WebAssembly)
+- `three`: 3D graphics library for background effects
+
+### Development Dependencies
+- `vite`: Fast build tool and development server
+- `gh-pages`: GitHub Pages deployment
+- `terser`: JavaScript minification
+
+This project demonstrates modern web development practices while maintaining a focus on user privacy and accessibility. It serves as an example of how to integrate AI capabilities in a privacy-first manner using client-side processing.
