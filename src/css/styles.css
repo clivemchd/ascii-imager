@@ -223,7 +223,7 @@ button:hover {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .loading {
@@ -260,4 +260,220 @@ input[type="checkbox"] {
 
 label {
     color: #ffffff;
+}
+
+.background-removal-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.bg-removal-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.loader-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-left: 4px solid #00ff88;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.bg-removal-loader p {
+    margin: 0;
+    color: #ffffff;
+    font-style: italic;
+}
+
+.bg-removal-loader small {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+}
+
+.processed-image-preview {
+    margin: 20px 0;
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.processed-image-preview h3 {
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.processed-image-preview img {
+    max-width: 300px;
+    max-height: 300px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: linear-gradient(45deg, 
+        rgba(255,255,255,0.1) 25%, 
+        transparent 25%, 
+        transparent 75%, 
+        rgba(255,255,255,0.1) 75%, 
+        rgba(255,255,255,0.1) 100%),
+    linear-gradient(45deg, 
+        rgba(255,255,255,0.1) 25%, 
+        transparent 25%, 
+        transparent 75%, 
+        rgba(255,255,255,0.1) 75%, 
+        rgba(255,255,255,0.1) 100%);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+}
+
+#removeBackground:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#removeBackground:disabled + span {
+    opacity: 0.5;
+}
+
+.bg-removal-indicator {
+    background: linear-gradient(45deg, rgba(0, 255, 136, 0.1), rgba(0, 153, 255, 0.1));
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.bg-removal-indicator p {
+    margin: 0;
+    color: #00ff88;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.beta-tag {
+    display: inline-block;
+    background: linear-gradient(45deg, #ff6b35, #ff8e53);
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(255, 107, 53, 0.3);
+}
+
+.info-icon {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 16px;
+    margin-left: 6px;
+    cursor: help;
+    vertical-align: middle;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.info-icon:hover {
+    background: rgba(0, 255, 136, 0.2);
+    border-color: rgba(0, 255, 136, 0.5);
+    color: #00ff88;
+    transform: scale(1.1);
+}
+
+/* Enhanced tooltip styling */
+.info-icon[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: normal;
+    white-space: normal;
+    width: 280px;
+    text-align: left;
+    line-height: 1.4;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.info-icon[title]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.9);
+    z-index: 1001;
+    pointer-events: none;
+}
+
+/* Progress cursor for disabled elements during background removal */
+.bg-removal-loader:not(.hidden) ~ * input:disabled,
+.bg-removal-loader:not(.hidden) ~ * button:disabled,
+.bg-removal-loader:not(.hidden) ~ * select:disabled,
+.bg-removal-loader:not(.hidden) ~ * .control-group input,
+.bg-removal-loader:not(.hidden) ~ * .control-group select,
+.bg-removal-loader:not(.hidden) ~ * .control-group button,
+.bg-removal-loader:not(.hidden) ~ * .control-group-vertical input,
+.bg-removal-loader:not(.hidden) ~ * .control-group-vertical select,
+.bg-removal-loader:not(.hidden) ~ * .control-group-vertical button {
+    cursor: progress !important;
+    pointer-events: auto;
+}
+
+/* Also apply progress cursor to labels and text during background removal */
+.bg-removal-loader:not(.hidden) ~ * label,
+.bg-removal-loader:not(.hidden) ~ * .control-group,
+.bg-removal-loader:not(.hidden) ~ * .control-group-vertical {
+    cursor: progress !important;
+}
+
+/* Alternative approach using body class for better browser support */
+body.bg-removal-in-progress .controls input,
+body.bg-removal-in-progress .controls select,
+body.bg-removal-in-progress .controls button,
+body.bg-removal-in-progress .controls label,
+body.bg-removal-in-progress .control-group,
+body.bg-removal-in-progress .control-group-vertical {
+    cursor: progress !important;
+}
+
+body.bg-removal-in-progress #convertBtn,
+body.bg-removal-in-progress #downloadBtn {
+    cursor: progress !important;
 }

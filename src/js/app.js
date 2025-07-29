@@ -1,3 +1,5 @@
+import { removeBackground } from '@imgly/background-removal';
+
 export class ImageToAscii {
     constructor() {
         this.canvas = document.getElementById('canvas');
@@ -18,7 +20,15 @@ export class ImageToAscii {
         this.textColor = document.getElementById('textColor');
         this.backgroundColor = document.getElementById('backgroundColor');
         
+        // Background removal elements
+        this.removeBackgroundCheckbox = document.getElementById('removeBackground');
+        this.backgroundRemovalLoader = document.getElementById('backgroundRemovalLoader');
+        this.processedImagePreview = document.getElementById('processedImagePreview');
+        this.processedImage = document.getElementById('processedImage');
+        this.backgroundRemovalIndicator = document.getElementById('backgroundRemovalIndicator');
+        
         this.currentImage = null;
+        this.processedImageData = null; // Store processed image data
         this.asciiResult = '';
         
         this.initializeEventListeners();
@@ -41,6 +51,11 @@ export class ImageToAscii {
         
         this.backgroundColor.addEventListener('change', () => {
             this.updateOutputColors();
+        });
+        
+        // Handle background removal checkbox
+        this.removeBackgroundCheckbox.addEventListener('change', () => {
+            this.handleBackgroundRemovalToggle();
         });
         
         // Drag and drop functionality
@@ -106,7 +121,16 @@ export class ImageToAscii {
                 
                 imageInfo.classList.remove('hidden');
                 
+                // Enable the background removal checkbox and convert button
+                this.removeBackgroundCheckbox.disabled = false;
                 this.convertBtn.disabled = false;
+                
+                // Reset processed image data and UI when new image is loaded
+                this.processedImageData = null;
+                this.processedImagePreview.classList.add('hidden');
+                this.backgroundRemovalLoader.classList.add('hidden');
+                this.backgroundRemovalIndicator.classList.add('hidden');
+                this.removeBackgroundCheckbox.checked = false;
             };
             this.currentImage.src = e.target.result;
         };
@@ -136,6 +160,87 @@ export class ImageToAscii {
         if (this.asciiOutput) {
             this.asciiOutput.style.backgroundColor = this.backgroundColor.value;
             this.asciiOutput.style.color = this.textColor.value;
+        }
+    }
+    
+    async handleBackgroundRemovalToggle() {
+        if (!this.currentImage) {
+            // This shouldn't happen since checkbox should be disabled, but just in case
+            this.removeBackgroundCheckbox.checked = false;
+            return;
+        }
+        
+        if (this.removeBackgroundCheckbox.checked) {
+            // If we already have processed image data, just show it
+            if (this.processedImageData) {
+                this.processedImagePreview.classList.remove('hidden');
+                this.backgroundRemovalIndicator.classList.remove('hidden');
+                return;
+            }
+            
+            // Show loader
+            this.backgroundRemovalLoader.classList.remove('hidden');
+            this.processedImagePreview.classList.add('hidden');
+            
+            // Add progress cursor to body
+            document.body.classList.add('bg-removal-in-progress');
+            
+            try {
+                console.log('Starting background removal...');
+                
+                // Remove background using @imgly/background-removal
+                const blob = await removeBackground(this.currentImage.src);
+                
+                console.log('Background removal completed, processing result...');
+                
+                // Create URL for the processed image
+                const processedImageUrl = URL.createObjectURL(blob);
+                
+                // Create new image object for the processed image
+                const processedImg = new Image();
+                processedImg.onload = () => {
+                    console.log('Processed image loaded successfully');
+                    
+                    // Store the processed image data
+                    this.processedImageData = processedImg;
+                    
+                    // Display the processed image
+                    this.processedImage.src = processedImageUrl;
+                    this.processedImagePreview.classList.remove('hidden');
+                    this.backgroundRemovalIndicator.classList.remove('hidden');
+                    
+                    // Hide loader
+                    this.backgroundRemovalLoader.classList.add('hidden');
+                    
+                    // Remove progress cursor from body
+                    document.body.classList.remove('bg-removal-in-progress');
+                };
+                
+                processedImg.onerror = () => {
+                    console.error('Failed to load processed image');
+                    alert('Failed to load processed image. Please try again.');
+                    this.removeBackgroundCheckbox.checked = false;
+                    this.backgroundRemovalLoader.classList.add('hidden');
+                    
+                    // Remove progress cursor from body
+                    document.body.classList.remove('bg-removal-in-progress');
+                };
+                
+                processedImg.src = processedImageUrl;
+                
+            } catch (error) {
+                console.error('Error removing background:', error);
+                alert('Failed to remove background. Please try again.\n\nNote: This feature requires an internet connection and may not work with all image types.');
+                this.removeBackgroundCheckbox.checked = false;
+                this.backgroundRemovalLoader.classList.add('hidden');
+                
+                // Remove progress cursor from body
+                document.body.classList.remove('bg-removal-in-progress');
+            }
+        } else {
+            // User unchecked - hide processed image and indicator (but keep the data for potential re-use)
+            this.processedImagePreview.classList.add('hidden');
+            this.backgroundRemovalIndicator.classList.add('hidden');
         }
     }
     
@@ -170,6 +275,11 @@ export class ImageToAscii {
         
         // Use setTimeout to allow loading message to display
         setTimeout(() => {
+            // Determine which image to use for conversion
+            const imageToConvert = this.removeBackgroundCheckbox.checked && this.processedImageData 
+                ? this.processedImageData 
+                : this.currentImage;
+            
             // Use default values
             const contrast = 1.0; // Default contrast
             const defaultWidth = 100; // Default width
@@ -183,7 +293,7 @@ export class ImageToAscii {
             if (totalCharsInput && !isNaN(totalCharsInput) && parseInt(totalCharsInput) > 0) {
                 // User specified total characters - calculate dimensions for that character count
                 const totalChars = parseInt(totalCharsInput);
-                const aspectRatio = this.currentImage.height / this.currentImage.width;
+                const aspectRatio = imageToConvert.height / imageToConvert.width;
                 
                 // Calculate width and height to achieve target total characters
                 width = Math.round(Math.sqrt(totalChars / (aspectRatio * 0.5)));
@@ -195,12 +305,19 @@ export class ImageToAscii {
                 
                 console.log(`Using total characters: ${totalChars}, calculated dimensions: ${width}×${height} = ${width * height} chars`);
             } else {
-                // Use default width
-                width = defaultWidth;
-                const aspectRatio = this.currentImage.height / this.currentImage.width;
-                height = Math.floor(width * aspectRatio * 0.5);
+                // Use default total characters (10,000) when input is empty
+                const defaultTotalChars = 10000;
+                const aspectRatio = imageToConvert.height / imageToConvert.width;
                 
-                console.log(`Using default width: ${width}, calculated height: ${height}, total: ${width * height} chars`);
+                // Calculate width and height to achieve default total characters
+                width = Math.round(Math.sqrt(defaultTotalChars / (aspectRatio * 0.5)));
+                height = Math.round(defaultTotalChars / width);
+                
+                // Ensure minimum dimensions
+                width = Math.max(width, 10);
+                height = Math.max(height, 5);
+                
+                console.log(`Using default total characters: ${defaultTotalChars}, calculated dimensions: ${width}×${height} = ${width * height} chars`);
             }
             
             // Set canvas size
@@ -208,7 +325,7 @@ export class ImageToAscii {
             this.canvas.height = height;
             
             // Draw image on canvas
-            this.ctx.drawImage(this.currentImage, 0, 0, width, height);
+            this.ctx.drawImage(imageToConvert, 0, 0, width, height);
             
             // Get image data
             const imageData = this.ctx.getImageData(0, 0, width, height);
