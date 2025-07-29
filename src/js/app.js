@@ -230,7 +230,7 @@ export class ImageToAscii {
                 
             } catch (error) {
                 console.error('Error removing background:', error);
-                alert('Failed to remove background. Please try again.\n\nNote: This feature requires an internet connection and may not work with all image types.');
+                alert('Failed to remove background. Please try again.\n\nNote: This feature may not work with all image types.');
                 this.removeBackgroundCheckbox.checked = false;
                 this.backgroundRemovalLoader.classList.add('hidden');
                 
