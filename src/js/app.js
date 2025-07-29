@@ -20,6 +20,8 @@ export class ImageToAscii {
         this.invertColors = document.getElementById('invertColors');
         this.textColor = document.getElementById('textColor');
         this.backgroundColor = document.getElementById('backgroundColor');
+        this.textColorHex = document.getElementById('textColorHex');
+        this.backgroundColorHex = document.getElementById('backgroundColorHex');
         
         // Background removal elements
         this.removeBackgroundCheckbox = document.getElementById('removeBackground');
@@ -47,11 +49,31 @@ export class ImageToAscii {
         
         // Handle color changes
         this.textColor.addEventListener('change', () => {
+            this.textColorHex.value = this.textColor.value;
             this.updateOutputColors();
         });
         
         this.backgroundColor.addEventListener('change', () => {
+            this.backgroundColorHex.value = this.backgroundColor.value;
             this.updateOutputColors();
+        });
+        
+        // Handle hex input changes
+        this.textColorHex.addEventListener('input', () => {
+            this.handleHexInput(this.textColorHex, this.textColor);
+        });
+        
+        this.backgroundColorHex.addEventListener('input', () => {
+            this.handleHexInput(this.backgroundColorHex, this.backgroundColor);
+        });
+        
+        // Handle hex input validation on blur
+        this.textColorHex.addEventListener('blur', () => {
+            this.validateAndUpdateHexInput(this.textColorHex, this.textColor);
+        });
+        
+        this.backgroundColorHex.addEventListener('blur', () => {
+            this.validateAndUpdateHexInput(this.backgroundColorHex, this.backgroundColor);
         });
         
         // Handle background removal checkbox
@@ -162,6 +184,56 @@ export class ImageToAscii {
             this.asciiOutput.style.backgroundColor = this.backgroundColor.value;
             this.asciiOutput.style.color = this.textColor.value;
         }
+    }
+    
+    handleHexInput(hexInput, colorPicker) {
+        const value = hexInput.value.trim();
+        
+        // Auto-add # if not present
+        if (value && !value.startsWith('#')) {
+            hexInput.value = '#' + value;
+        }
+        
+        // Validate hex color format (real-time)
+        if (this.isValidHexColor(hexInput.value)) {
+            colorPicker.value = hexInput.value;
+            this.updateOutputColors();
+            hexInput.setCustomValidity('');
+        } else if (hexInput.value.length > 0) {
+            hexInput.setCustomValidity('Invalid hex color format. Use #RRGGBB format.');
+        }
+    }
+    
+    validateAndUpdateHexInput(hexInput, colorPicker) {
+        const value = hexInput.value.trim();
+        
+        if (value === '') {
+            // If empty, keep current color picker value
+            hexInput.value = colorPicker.value;
+            hexInput.setCustomValidity('');
+            return;
+        }
+        
+        // Auto-add # if not present
+        if (!value.startsWith('#')) {
+            hexInput.value = '#' + value;
+        }
+        
+        // Validate and update
+        if (this.isValidHexColor(hexInput.value)) {
+            colorPicker.value = hexInput.value;
+            this.updateOutputColors();
+            hexInput.setCustomValidity('');
+        } else {
+            // Invalid format - revert to color picker value
+            hexInput.value = colorPicker.value;
+            hexInput.setCustomValidity('');
+            alert('Invalid hex color format. Please use #RRGGBB format (e.g., #00ff88)');
+        }
+    }
+    
+    isValidHexColor(hex) {
+        return /^#[0-9A-Fa-f]{6}$/.test(hex);
     }
     
     async handleBackgroundRemovalToggle() {

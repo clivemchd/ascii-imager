@@ -262,6 +262,170 @@ label {
     color: #ffffff;
 }
 
+/* Color picker styling */
+.color-control-group {
+    display: flex;
+    gap: 20px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.color-input-wrapper {
+    flex: 1;
+    min-width: 200px;
+    width: 100%;
+}
+
+.color-picker-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 5px;
+    width: 100%;
+}
+
+.color-picker-container input[type="color"] {
+    width: 50px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.color-picker-container input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+}
+
+.color-picker-container input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 6px;
+}
+
+.color-picker-container input[type="color"]::-moz-color-swatch {
+    border: none;
+    border-radius: 6px;
+}
+
+.color-picker-container input[type="text"] {
+    flex: 1;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    text-transform: uppercase;
+    min-width: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.color-picker-container input[type="text"]:focus {
+    outline: none;
+    border-color: #00ff88;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.color-picker-container input[type="text"]:invalid {
+    border-color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+}
+
+/* Improve touch interaction on mobile */
+.color-picker-container input {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.color-picker-container input[type="text"]:focus {
+    outline: none;
+    border-color: #00ff88;
+    background: rgba(255, 255, 255, 0.08);
+    transform: none; /* Prevent zoom on focus */
+}
+
+/* Prevent iOS zoom on input focus */
+@media screen and (max-width: 768px) {
+    .color-picker-container input[type="text"] {
+        font-size: 16px !important;
+        transform-origin: left top;
+        zoom: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .color-control-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .color-input-wrapper {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .color-picker-container {
+        flex-direction: row;
+        gap: 12px;
+        width: 100%;
+    }
+    
+    .color-picker-container input[type="color"] {
+        width: 60px;
+        height: 45px;
+        flex-shrink: 0;
+    }
+    
+    .color-picker-container input[type="text"] {
+        flex: 1;
+        min-width: 0;
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .color-control-group {
+        gap: 20px;
+        margin: 20px 0;
+    }
+    
+    .color-input-wrapper label {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        display: block;
+    }
+    
+    .color-picker-container {
+        gap: 8px;
+    }
+    
+    .color-picker-container input[type="color"] {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+    }
+    
+    .color-picker-container input[type="text"] {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 14px 12px;
+        border-radius: 8px;
+        min-height: 50px;
+        box-sizing: border-box;
+    }
+}
+
 .background-removal-section {
     margin-top: 20px;
     text-align: center;
