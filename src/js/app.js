@@ -151,6 +151,20 @@ export class ImageToAscii {
             }
         }
         
+        // Validate total characters input if provided
+        const totalCharsInput = this.totalChars.value.trim();
+        if (totalCharsInput && !isNaN(totalCharsInput)) {
+            const totalChars = parseInt(totalCharsInput);
+            if (totalChars < 100) {
+                alert('Total characters must be at least 100!');
+                return;
+            }
+            if (totalChars > 5000000) {
+                alert('Total characters cannot exceed 5,000,000 for performance reasons!');
+                return;
+            }
+        }
+        
         this.loading.classList.remove('hidden');
         this.asciiOutput.classList.add('hidden');
         
