@@ -583,6 +583,99 @@ section {
     margin: 0;
 }
 
+/* Support Section Styling */
+.support-section {
+    margin: 40px 0;
+    text-align: center;
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 15px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.support-container h2 {
+    color: #00ff88;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+    text-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+.support-container p {
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 25px;
+    font-size: 1.1em;
+}
+
+.support-options {
+    margin: 25px 0;
+}
+
+.coffee-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #00ff88, #00cc6a);
+    color: #000000;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.coffee-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 255, 136, 0.4);
+    background: linear-gradient(135deg, #00ffaa, #00ff88);
+}
+
+.coffee-button:active {
+    transform: translateY(0);
+}
+
+.coffee-icon {
+    font-size: 1.3em;
+    animation: bounce 2s infinite;
+}
+
+.coffee-text {
+    font-weight: 600;
+}
+
+.coffee-amount {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.support-note {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9em;
+    margin-top: 15px;
+    display: block;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-5px);
+    }
+    60% {
+        transform: translateY(-3px);
+    }
+}
+
 /* Footer styling */
 footer {
     text-align: center;
@@ -629,5 +722,24 @@ section h3 {
     
     .subtitle {
         font-size: 1em;
+    }
+    
+    .support-section {
+        margin: 30px 0;
+        padding: 20px;
+    }
+    
+    .support-container h2 {
+        font-size: 1.5em;
+    }
+    
+    .coffee-button {
+        padding: 12px 25px;
+        font-size: 1em;
+        gap: 10px;
+    }
+    
+    .coffee-icon {
+        font-size: 1.2em;
     }
 }
