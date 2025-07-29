@@ -4,9 +4,28 @@ import * as THREE from 'three'
 export class ThreeJSBackground {
     constructor() {
         this.container = document.getElementById('threejs-background');
+        if (!this.container) {
+            console.warn('ThreeJS background container not found');
+            return;
+        }
+        
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        this.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        // Create renderer with error handling
+        try {
+            this.renderer = new THREE.WebGLRenderer({ 
+                alpha: true, 
+                antialias: true,
+                preserveDrawingBuffer: false,
+                powerPreference: "default"
+            });
+        } catch (error) {
+            console.warn('WebGL not supported, falling back to canvas renderer:', error);
+            // Fallback or graceful degradation
+            return;
+        }
+        
         this.asciiChars = '@%#*+=-:. ';
         this.textMeshes = [];
         this.framebufferTexture = null;
@@ -21,6 +40,11 @@ export class ThreeJSBackground {
     }
     
     init() {
+        if (!this.renderer) {
+            console.warn('Renderer not available, skipping Three.js initialization');
+            return;
+        }
+        
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.setClearColor(0x000000, 0);
         this.container.appendChild(this.renderer.domElement);
@@ -41,6 +65,11 @@ export class ThreeJSBackground {
     }
     
     createFramebuffer() {
+        if (!this.renderer) {
+            console.warn('Renderer not available, skipping framebuffer creation');
+            return;
+        }
+        
         // Create render target for framebuffer effect
         this.renderTarget = new THREE.WebGLRenderTarget(512, 512, {
             minFilter: THREE.LinearFilter,
@@ -50,6 +79,11 @@ export class ThreeJSBackground {
     }
     
     createASCIIField() {
+        if (!this.renderer) {
+            console.warn('Renderer not available, skipping ASCII field creation');
+            return;
+        }
+        
         // Create a field of ASCII characters
         const gridSize = 15;
         const spacing = 1.5;
@@ -176,6 +210,10 @@ export class ThreeJSBackground {
     }
     
     updateFramebuffer() {
+        if (!this.renderer) {
+            return; // Skip framebuffer update if renderer is not available
+        }
+        
         // Render scene to framebuffer for feedback effect
         this.renderer.setRenderTarget(this.renderTarget);
         this.renderer.render(this.scene, this.camera);
@@ -194,6 +232,10 @@ export class ThreeJSBackground {
     }
     
     animate() {
+        if (!this.renderer) {
+            return; // Stop animation if renderer is not available
+        }
+        
         requestAnimationFrame(() => this.animate());
         
         this.time += 0.01;
@@ -258,7 +300,13 @@ export class ThreeJSBackground {
     }
     
     handleResize() {
+        if (!this.renderer) {
+            return; // Skip resize handling if renderer is not available
+        }
+        
         window.addEventListener('resize', () => {
+            if (!this.renderer) return; // Additional check in the event handler
+            
             this.camera.aspect = window.innerWidth / window.innerHeight;
             this.camera.updateProjectionMatrix();
             this.renderer.setSize(window.innerWidth, window.innerHeight);

@@ -2,7 +2,7 @@ import { removeBackground } from '@imgly/background-removal';
 
 export class ImageToAscii {
     constructor() {
-        this.canvas = document.getElementById('canvas');
+        this.canvas = document.getElementById('ascii-canvas');
         this.ctx = this.canvas.getContext('2d');
         this.imageInput = document.getElementById('imageInput');
         this.originalImage = document.getElementById('originalImage');
@@ -10,6 +10,7 @@ export class ImageToAscii {
         this.convertBtn = document.getElementById('convertBtn');
         this.downloadBtn = document.getElementById('downloadBtn');
         this.loading = document.getElementById('loading');
+        this.downloadLoading = document.getElementById('downloadLoading');
         
         this.totalChars = document.getElementById('totalChars');
         this.charsetSelect = document.getElementById('charsetSelect');
@@ -264,8 +265,8 @@ export class ImageToAscii {
                 alert('Total characters must be at least 100!');
                 return;
             }
-            if (totalChars > 5000000) {
-                alert('Total characters cannot exceed 5,000,000 for performance reasons!');
+            if (totalChars > 400000) {
+                alert('Total characters cannot exceed 400,000 for performance reasons!');
                 return;
             }
         }
@@ -394,21 +395,35 @@ export class ImageToAscii {
     downloadAscii() {
         if (!this.asciiResult) return;
         
+        // Show download loader
+        this.downloadLoading.classList.remove('hidden');
+        this.downloadBtn.disabled = true;
+        this.downloadBtn.textContent = 'Preparing Download...';
+        
         const format = this.downloadFormat.value;
         
-        switch (format) {
-            case 'png':
-                this.downloadAsPNG();
-                break;
-            case 'svg':
-                this.downloadAsSVG();
-                break;
-            case 'txt':
-                this.downloadAsText();
-                break;
-            default:
-                this.downloadAsPNG();
-        }
+        // Use setTimeout to allow UI to update before starting download
+        setTimeout(() => {
+            switch (format) {
+                case 'png':
+                    this.downloadAsPNG();
+                    break;
+                case 'svg':
+                    this.downloadAsSVG();
+                    break;
+                case 'txt':
+                    this.downloadAsText();
+                    break;
+                default:
+                    this.downloadAsPNG();
+            }
+        }, 100);
+    }
+    
+    hideDownloadLoader() {
+        this.downloadLoading.classList.add('hidden');
+        this.downloadBtn.disabled = false;
+        this.downloadBtn.textContent = 'Download ASCII';
     }
     
     downloadAsPNG() {
@@ -476,6 +491,9 @@ export class ImageToAscii {
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
+            
+            // Hide download loader
+            this.hideDownloadLoader();
         }, 'image/png', 1.0); // Maximum quality
     }
     
@@ -522,6 +540,9 @@ export class ImageToAscii {
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+        
+        // Hide download loader
+        this.hideDownloadLoader();
     }
     
     downloadAsText() {
@@ -534,5 +555,8 @@ export class ImageToAscii {
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+        
+        // Hide download loader
+        this.hideDownloadLoader();
     }
 }
