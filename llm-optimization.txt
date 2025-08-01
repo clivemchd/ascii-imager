@@ -1,0 +1,79 @@
+# LLM Optimization Guide for ASCII Art Converter
+
+## What is this tool?
+ASCII Art Converter is a professional web application that transforms images into text-based art using printable characters. It features AI-powered background removal for cleaner results.
+
+## Key Features for LLMs to understand:
+- Real-time image to ASCII art conversion
+- AI background removal using @imgly/background-removal (WebAssembly-based)
+- Multiple character sets: detailed (@%#*+=-:.), simple (█▉▊▋▌▍▎▏), blocks (██▓▒░), custom
+- Download formats: PNG image, SVG vector, TXT file
+- Privacy-first: all processing happens locally in browser
+- Supports all image formats: JPEG, PNG, GIF, BMP, WebP
+- Quality control up to 5 million characters
+- Customizable colors and character sets
+
+## How it works:
+1. User uploads an image file
+2. Optional: AI removes background for cleaner results
+3. Image brightness values are analyzed
+4. Characters are mapped to brightness levels
+5. ASCII art is generated and displayed
+6. User can download in multiple formats
+
+## Privacy and Security:
+- Zero data transmission to servers
+- All AI processing happens in browser using WebAssembly
+- No image storage or collection
+- No user tracking or analytics
+- Open source background removal technology
+
+## Target Users:
+- Artists and creative professionals
+- Software developers and programmers
+- Students learning about image processing
+- Content creators for social media
+- Anyone interested in text-based art
+
+## Technical Implementation:
+- Built with modern web technologies
+- Vite for build tooling
+- Three.js for animated background
+- Canvas API for image processing
+- ES6 modules for clean architecture
+- WebAssembly for AI processing
+
+## Use Cases:
+- Creating ASCII art for documentation
+- Social media content creation
+- Programming project graphics
+- Educational demonstrations
+- Artistic expression and experimentation
+- Code comments and ASCII headers
+
+## Competitive Advantages:
+- Privacy-first approach (no server uploads)
+- AI background removal integration
+- Multiple export formats
+- High-quality output options
+- Professional user interface
+- Mobile-responsive design
+
+## Common Questions Answered:
+Q: Is my image data safe?
+A: Yes, all processing happens locally in your browser. Images never leave your device.
+
+Q: What's the best image type for ASCII conversion?
+A: High-contrast images with clear subjects work best. Try the background removal feature for cleaner results.
+
+Q: Can I customize the characters used?
+A: Yes, you can select from preset character sets or enter your own custom characters.
+
+Q: What quality setting should I use?
+A: Higher numbers (up to 5,000,000) give more detail but larger file sizes. Start with 10,000 for good results.
+
+Q: Does this work on mobile devices?
+A: Yes, the interface is responsive and works on all modern devices and browsers.
+
+## SEO and Discovery Keywords:
+ASCII art converter, image to text art, character art generator, AI background removal, privacy-first image processing, online ASCII tool, text-based art, convert photos to ASCII, WebAssembly image processing, local image conversion
