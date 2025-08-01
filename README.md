@@ -1,6 +1,8 @@
 # ASCII Art Converter
 
-A modern web-based image to ASCII art converter with an animated Three.js background. Built with Vite for optimal development and build performance.
+A modern web-based image to ASCII art converter. Vibe coded with Vite for optimal development and build performance.
+
+> **Note**: This project was vibe-coded, so expect some minor bugs and issues. Contributions and bug reports are welcome!
 
 ## Features
 
